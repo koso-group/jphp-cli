@@ -48,15 +48,14 @@ $cli->handle();
 
 // And now we will color the output to the terminal...
 
-
-$formattingMagenta = TFormatting::create('magenta');
+$formattingMain = TFormatting::create(['magenta', '_white_bg', 'bold', 'underline']);
 $formattingItalic = TFormatting::create('italic');
 
-var_dump((TPrinter::startWith($formattingMagenta))
+echo (TPrinter::startWith($formattingMain))
 	->concat('Magenta text as MAIN')
 	->concatWith("{$formattingItalic->get()} cyan color as included", TFormatting::create('cyan'))
     ->concat('Magenta return is the main one')
     ->concatWith('text with YELLOW background', TFormatting::create('_yellow_bg'))
     ->concat('and again return magenta as main')
-	->print());
+	->print();
 ```
