@@ -1,7 +1,5 @@
 # JPHP Command Line Interface Handler
 
-Minecraft Launcher module for parse and run classic version.json from Mojang LAUNCHERMETA 
-
 ## How it work ??? ✨Magic ✨
 
 ```php
