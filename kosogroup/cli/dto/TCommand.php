@@ -22,8 +22,12 @@ class TCommand
         $this->description = $description;
     }
 
-    
+
     protected array $_options = [];
+    public function getOprions()
+    {
+        return $this->_options;
+    }
     public function addOption(string $name, bool $needValue = false, string $description = null, string $alias = null)
     {
         $option = new TCommandOption($name, $needValue, $description, $alias);
@@ -32,12 +36,18 @@ class TCommand
 
         return $this;
     }
-    public function hasOption($name) : bool { return isset($this->_options[$name]); }
-    public function getOption($name) : TCommandOption { return $this->_options[$name]; }
+    public function hasOption($name): bool
+    {
+        return isset($this->_options[$name]);
+    }
+    public function getOption($name): TCommandOption
+    {
+        return $this->_options[$name];
+    }
 
     public function execute()
     {
-        if($this->closure)
+        if ($this->closure)
             $this->closure->call($this, $this);
-    }    
+    }
 }

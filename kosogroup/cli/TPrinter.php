@@ -11,7 +11,7 @@ class TPrinter
     public static function startWith(TFormatting $formatting)
     {
         $self = new self($formatting->get());
-        
+
 
 
         return $self;
@@ -19,7 +19,7 @@ class TPrinter
 
     function __construct($formatting = null)
     {
-        if($formatting) $this->startFormatting = $formatting;
+        if ($formatting) $this->startFormatting = $formatting;
 
         $this->_dataSet[] = $this->startFormatting;
     }
@@ -32,7 +32,7 @@ class TPrinter
 
     public function concatWith(string $string, TFormatting $formatting)
     {
-        $this->_dataSet[] = [ $formatting->get(), $string ];
+        $this->_dataSet[] = [$formatting->get(), $string];
         return $this;
     }
 
@@ -43,33 +43,30 @@ class TPrinter
 
         return $this;
     }
-    
-    function parse($dataSet)
-	{
-		$formatting = array_shift($dataSet);
-		$result[] = $formatting;
-		foreach($dataSet as $item)
-		{
-			if(is_array($item))
-			{
-				$result[] = $this->parse($item);
-				//resettting to MAIN formatting
-				$result[] = $formatting; 
-				continue;
-			}
-			
-			$result[] = $item;
-		}
 
-		//clear formatting
-		$result[] = TFormatting::create('_clear')->get();
-		
-		return implode('', $result);
-	}
+    function parse($dataSet)
+    {
+        $formatting = array_shift($dataSet);
+        $result[] = $formatting;
+        foreach ($dataSet as $item) {
+            if (is_array($item)) {
+                $result[] = $this->parse($item);
+                //resettting to MAIN formatting
+                $result[] = $formatting;
+                continue;
+            }
+
+            $result[] = $item;
+        }
+
+        //clear formatting
+        $result[] = TFormatting::create('_clear')->get();
+
+        return implode('', $result);
+    }
 
     function print()
     {
         return $this->parse($this->_dataSet);
     }
-
 }

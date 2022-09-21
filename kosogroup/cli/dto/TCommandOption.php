@@ -24,6 +24,13 @@ class TCommandOption
         $this->description = $description;
     }
 
-    public function setUsed(bool $isUsed = true) { $this->_isUsed = $isUsed; return $this; }
-    public function isUsed() { return $this->_isUsed; }
+    public function setUsed(bool $isUsed = true)
+    {
+        $this->_isUsed = $isUsed;
+        return $this;
+    }
+    public function isUsed()
+    {
+        return $this->_isUsed;
+    }
 }

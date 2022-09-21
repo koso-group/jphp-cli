@@ -16,29 +16,39 @@ $cli = new TCommandLineInterface();
 
 
 // serve --port 1488 --wss
-$cli->addCommandWO('serve', function (TCommand $command)
-{
+$cli->addCommandWO('serve', function (TCommand $command) {
     var_dump($command);
 }, false, "This command rise up the WEB server")
-    ->addOption('port', true, null, 'p')
-    ->addOption('websocket', false, null, 'wss');
+    ->addOption('port', true, "take port", 'p')
+    ->addOption('websocket', false, "Enable WebSocket Server", 'wss');
 
 // make:profile NewProfile --copy OldProfile
 $cli->addCommandWO('make:profile', function (TCommand $command) {
-    
+
     //code....
 
     // take Option or Option Value
     $optionCopy = $command->getOption('--copy');
-    if($optionCopy->isUsed())
-    {
+    if ($optionCopy->isUsed()) {
         $profileName = $optionCopy->getValue();
         // code....
     }
     var_dump($command);
-}, true)
-    ->addOption('copy', true, null, 'c')
-    ->addOption('version', true, null, 'v');
+}, true, "This command generates a new profile for the servlet")
+    ->addOption('copy', true, "Use this option if you need copy already generated profile", 'c')
+    ->addOption('version', true, 'Use this option if yoy need generate profile for a spec. version', 'v');
+
+
+$cli->addCommandWO('up:servlet', fn ($command) => var_dump($command->getValue()), true, "up [target] servlet");
+$cli->addCommandWO('up:servlets', fn ($command) => var_dump($command->getValue()), false, 'up all reolved servlets on this launchServer');
+
+
+
+
+//redefine HEPLERS command for custom handling
+$cli->addCommandWO('help', fn ($command) => var_dump($command->getValue()), true, "custom helper function");
+$cli->addCommandWO('?', fn ($command) => var_dump($command->getValue()), true, "custom helper function");
+
 
 $cli->handle();
 

@@ -6,12 +6,11 @@ use php\lib\char;
 
 class TFormatting
 {
-    public static function create($formatting) : TFormatting
+    public static function create($formatting): TFormatting
     {
-        $formattings = is_array($formatting)? $formatting: [$formatting];
+        $formattings = is_array($formatting) ? $formatting : [$formatting];
 
-        foreach($formattings as $formatting)
-        {
+        foreach ($formattings as $formatting) {
             $result[] = char::of(27) . "[" . (array(
                 "_reset"        => 0,
                 "bold"       => 1,
