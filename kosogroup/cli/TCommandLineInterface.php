@@ -31,6 +31,8 @@ class TCommandLineInterface
             $appPath = array_shift($arguments);
         }
 
+        if(empty($arguments)) return;
+
         $command = TParser::walk($this, $arguments);
         if($command) $command->execute();
     }
