@@ -1,5 +1,3 @@
-
-@@ -0,0 +1,46 @@
 # JPHP Command Line Interface Handler
 
 Minecraft Launcher module for parse and run classic version.json from Mojang LAUNCHERMETA 
@@ -10,8 +8,9 @@ Minecraft Launcher module for parse and run classic version.json from Mojang LAU
 <?php
 
 use kosogroup\cli\dto\TCommand;
-use kosogroup\cli\TColor;
 use kosogroup\cli\TCommandLineInterface;
+use kosogroup\cli\TFormatting;
+use kosogroup\cli\TPrinter;
 
 $cli = new TCommandLineInterface();
 
@@ -42,4 +41,22 @@ $cli->addCommandWO('make:profile', function (TCommand $command) {
     ->addOption('version', true, null, 'v');
 
 $cli->handle();
+
+
+
+
+
+// And now we will color the output to the terminal...
+
+
+$formattingMagenta = TFormatting::create('magenta');
+$formattingItalic = TFormatting::create('italic');
+
+var_dump((TPrinter::startWith($formattingMagenta))
+	->concat('Magenta text as MAIN')
+	->concatWith("{$formattingItalic->get()} cyan color as included", TFormatting::create('cyan'))
+    ->concat('Magenta return is the main one')
+    ->concatWith('text with YELLOW background', TFormatting::create('_yellow_bg'))
+    ->concat('and again return magenta as main')
+	->print());
 ```
